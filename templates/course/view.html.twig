@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><b>Reservations Details</b></h2></div>
+                    </div>
+                </div>
+                {% if courses|length > 0 %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>LimtiedSeats</th>
+                        <th>Reserved</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.topic }}</td>
+                            <td>{{ course.limitedseats }}</td>
+                            <td>{{ course.course_count}} </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

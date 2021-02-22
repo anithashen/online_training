@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script src = "/js/jquery.searchandreserve.event.js"></script>
+
+    {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        {% if upcomingreserved == true %}
+                        <div class="col-sm-8"><h2><b>Upcoming Reserved Trainings</b></h2></div>
+                            {% else %}
+                                <div class="col-sm-8"><h2><b>Training Details</b></h2></div>
+                        {% endif %}
+                    </div>
+                    <div class="alert alert-success alert-dismissible" id="alert" style="display:none">
+                        <button type="button" class="close alert-close">&times;</button>
+                        <strong>Success!</strong> Course Reserved.
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="featured_listing_tbody">
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.topic }}</td>
+                            <td>{{ course.description }}</td>
+                            <td>{{ course.startdatetime|date('Y-m-d H:i') }}
+                                to {{ course.enddatetime|date('Y-m-d H:i') }} </td>
+                            <td>
+                                {% if upcomingreserved == true %}
+                                    <a href="{{ path('upcoming_reservation_delete', {'id': course.id }) }}" class="Cancel" title="Cancel"
+                                       data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                                {% else %}
+                                    <a data-id="{{ course.id }}" class="reservation" title="OptionToReserve"
+                                       data-toggle="tooltip"><i class="fa fa-ticket"></i></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

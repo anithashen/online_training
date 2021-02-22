@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8"><h2><b>Training Details List</b></h2></div>
+                        <div class="col-sm-4">
+                            <a href="{{ path('create_course') }}" class="btn btn-info add-new" role="button"><i class="fa fa-plus"></i>Post New Training</a>
+                        </div>
+                    </div>
+                </div>
+                {% if courses|length > 0 %}
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Description</th>
+                        <th>Duration</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for course in courses %}
+                        <tr>
+                            <td>{{ course.topic }}</td>
+                            <td>{{ course.description }}</td>
+                            <td>{{ course.startdatetime|date('Y-m-d H:i')}} to {{ course.enddatetime|date('Y-m-d H:i')}} </td>
+                            <td>
+                                <a  href="{{ path('course_update', {'id': course.id }) }}"  class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                <a  href="{{ path('course_delete', {'id': course.id }) }}" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
