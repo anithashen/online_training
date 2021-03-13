@@ -155,7 +155,6 @@ class CourseController extends AbstractController
     {
 
         $allCourseList = $this->courseRepository($em)->findReservedUser($user->getId());
-        //print_r($allCourseList);die('123');
         return $this->render('course/view.html.twig', [
             'courses' => $allCourseList
         ]);
